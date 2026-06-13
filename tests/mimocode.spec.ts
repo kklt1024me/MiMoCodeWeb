@@ -12,6 +12,9 @@ test("renders the MiMo Code landing page in Chinese", async ({ page }) => {
 
 test("loads the cloned visual assets", async ({ page }) => {
   await page.goto("/");
+  await page.waitForFunction(() =>
+    [...document.images].every((img) => img.complete && img.naturalWidth > 0),
+  );
 
   const assets = await page.evaluate(() => {
     const heroBg = getComputedStyle(document.querySelector(".hero__bg")!).backgroundImage;
